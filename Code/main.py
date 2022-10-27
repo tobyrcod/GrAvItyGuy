@@ -8,7 +8,7 @@ clock = pygame.time.Clock()
 
 def main():
 
-    player = Player(20, 20)
+    player = Player(width=20, height=20)
 
     run = True
     while run:
