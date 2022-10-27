@@ -6,15 +6,9 @@ pygame.display.set_caption("grAvIty guy")
 clock = pygame.time.Clock()
 
 
-def draw(win):
-    win.fill(BG_COLOR)
-
-    pygame.display.update()
-
-
 def main():
 
-    player = Player()
+    player = Player(20, 20)
 
     run = True
     while run:
@@ -28,9 +22,19 @@ def main():
                 run = False
                 break
 
-        draw(WIN)
+        draw(WIN, player)
 
     pygame.quit()
+
+
+def draw(win: pygame.display, player: Player):
+
+    win.fill(BG_COLOR)
+
+    player_surface, player_position = player.get_render_info()
+    win.blit(player_surface, player_position)
+
+    pygame.display.update()
 
 
 if __name__ == "__main__":
