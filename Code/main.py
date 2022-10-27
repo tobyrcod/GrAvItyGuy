@@ -22,6 +22,9 @@ def main():
             if event.type == pygame.QUIT:
                 run = False
                 break
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE:
+                    player.jump()
 
         player.update(delta_time)
 
