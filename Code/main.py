@@ -12,15 +12,18 @@ def main():
 
     run = True
     while run:
-        # Go to the next frame
-        clock.tick(FPS)
+        # Go to the next frame and save how long it has been since the last frame
+        delta_time = clock.tick(FPS) / 1000
         # Get all the events that happen this frame
         events = pygame.event.get()
+
         # Respond to the pygame events this frame
         for event in events:
             if event.type == pygame.QUIT:
                 run = False
                 break
+
+        player.update(delta_time)
 
         draw(WIN, player)
 
