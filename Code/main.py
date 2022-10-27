@@ -1,11 +1,21 @@
 from utils import *
+from gameplay import *
 
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("grAvIty guy")
 clock = pygame.time.Clock()
 
 
-def run_game_loop():
+def draw(win):
+    win.fill(BG_COLOR)
+
+    pygame.display.update()
+
+
+def main():
+
+    player = Player()
+
     run = True
     while run:
         # Go to the next frame
@@ -18,11 +28,9 @@ def run_game_loop():
                 run = False
                 break
 
+        draw(WIN)
+
     pygame.quit()
-
-
-def main():
-    run_game_loop()
 
 
 if __name__ == "__main__":
