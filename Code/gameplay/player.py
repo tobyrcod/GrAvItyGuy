@@ -1,3 +1,5 @@
+import pygame
+
 from utils import *
 
 
@@ -16,6 +18,11 @@ class Player:
         self.gravity_scale *= -1
         self.velocity.y = self.gravity_scale * self.vertical_speed
 
+    def move(self, move_amount: pygame.Vector2, collisions):
+        new_position = self.position + move_amount
+        new_position = self.clamp_to_screen(new_position)
+        self.position = new_position
+
     def clamp_to_screen(self, position):
         if position.y < 1:
             position.y = 1
@@ -26,15 +33,12 @@ class Player:
 
         return position
 
-    def update(self, delta_time):
+    def update(self, delta_time, collisions):
         # Get the position the player would move to with its current velocity
-        new_position = self.position + self.velocity * delta_time
+        move_amount = self.velocity * delta_time
 
         # Apply constraints to that position (collisions)
-        new_position = self.clamp_to_screen(new_position)
-
-        # Move to the new constrained position
-        self.position = new_position
+        self.move(move_amount=move_amount, collisions=collisions)
 
     def get_render_info(self):
         surface = pygame.Surface(self.size)

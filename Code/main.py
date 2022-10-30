@@ -27,7 +27,7 @@ def main():
                 if event.key == pygame.K_SPACE:
                     player.jump()
 
-        player.update(delta_time)
+        player.update(delta_time, collisions=tilemap)
 
         draw(WIN, player, tilemap)
 
