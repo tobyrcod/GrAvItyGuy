@@ -2,23 +2,21 @@ from utils import *
 
 
 class Player:
-
-    speed = 20
-    swap_impulse = -10
+    vertical_speed = 100
 
     def __init__(self, width, height):
         self.size = pygame.Vector2(width, height)
-        self.position = pygame.Vector2(0, 0)
-        self.velocity = pygame.Vector2(0, 0)
+        self.position = pygame.Vector2(100, HEIGHT / 2 - height / 2)
+
+        self.gravity_scale = 1
+        self.velocity = pygame.Vector2(0, self.gravity_scale * self.vertical_speed)
         print('Created a player instance')
 
     def jump(self):
-        self.velocity.y = self.swap_impulse
-        print('jump')
+        self.gravity_scale *= -1
+        self.velocity.y = self.gravity_scale * self.vertical_speed
 
     def update(self, delta_time):
-        self.velocity.y += GRAVITY * delta_time
-
         new_position = self.position + self.velocity * delta_time
         if new_position.y < 1:
             new_position.y = 1

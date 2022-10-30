@@ -38,7 +38,6 @@ def draw(win: pygame.display, player: Player):
     win.fill(BG_COLOR)
 
     player_surface, player_position = player.get_render_info()
-    print(player_surface.get_size(), player_position)
     win.blit(player_surface, player_position)
 
     pygame.display.update()
