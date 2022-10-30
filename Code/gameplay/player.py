@@ -16,15 +16,24 @@ class Player:
         self.gravity_scale *= -1
         self.velocity.y = self.gravity_scale * self.vertical_speed
 
-    def update(self, delta_time):
-        new_position = self.position + self.velocity * delta_time
-        if new_position.y < 1:
-            new_position.y = 1
+    def clamp_to_screen(self, position):
+        if position.y < 1:
+            position.y = 1
             self.velocity.y = 0
-        if new_position.y > HEIGHT - self.size.y:
-            new_position.y = HEIGHT - self.size.y
+        if position.y > HEIGHT - self.size.y:
+            position.y = HEIGHT - self.size.y
             self.velocity.y = 0
 
+        return position
+
+    def update(self, delta_time):
+        # Get the position the player would move to with its current velocity
+        new_position = self.position + self.velocity * delta_time
+
+        # Apply constraints to that position (collisions)
+        new_position = self.clamp_to_screen(new_position)
+
+        # Move to the new constrained position
         self.position = new_position
 
     def get_render_info(self):

@@ -9,6 +9,7 @@ clock = pygame.time.Clock()
 def main():
 
     player = Player(width=20, height=20)
+    tilemap = Tilemap(width=3, height=4)
 
     run = True
     while run:
