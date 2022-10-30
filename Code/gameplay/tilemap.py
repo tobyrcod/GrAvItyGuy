@@ -2,6 +2,12 @@ from utils import *
 
 
 class Tilemap:  # currently indexed with [x][y]
+
+    dict_index_color = {
+        1: RED,
+        2: GREEN
+    }
+
     def __init__(self, width: int, height: int):
         self.width, self.height = width, height
         self.size = pygame.Vector2(WIDTH, HEIGHT)
@@ -9,7 +15,7 @@ class Tilemap:  # currently indexed with [x][y]
         self.grid_size = math.ceil(self.size.y / height)
         self.grid = [[-1 for y in range(height)] for x in range(width)]
         self.grid[0][1] = 1
-        print(self.grid, self.grid_size)
+        self.grid[3][2] = 2
 
     def get_render_info(self):
         surface = pygame.Surface(self.size).convert_alpha()  # makes the parts of the surface we don't draw to
@@ -29,7 +35,7 @@ class Tilemap:  # currently indexed with [x][y]
                     # Draw it
                     pygame.draw.rect(
                         surface=surface,
-                        color=RED,
+                        color=self.dict_index_color[value],
                         rect=(x * self.grid_size, y * self.grid_size, self.grid_size, self.grid_size)
                     )
 
