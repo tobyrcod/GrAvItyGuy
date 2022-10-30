@@ -9,7 +9,7 @@ clock = pygame.time.Clock()
 def main():
 
     player = Player(width=20, height=20)
-    tilemap = Tilemap(width=3, height=4)
+    tilemap = Tilemap(width=100, height=10)
 
     run = True
     while run:
@@ -29,14 +29,17 @@ def main():
 
         player.update(delta_time)
 
-        draw(WIN, player)
+        draw(WIN, player, tilemap)
 
     pygame.quit()
 
 
-def draw(win: pygame.display, player: Player):
+def draw(win: pygame.display, player: Player, tilemap: Tilemap):
 
     win.fill(BG_COLOR)
+
+    tilemap_surface, tilemap_position = tilemap.get_render_info()
+    win.blit(tilemap_surface, tilemap_position)
 
     player_surface, player_position = player.get_render_info()
     win.blit(player_surface, player_position)
