@@ -15,8 +15,16 @@ class Tilemap:  # currently indexed with [x][y]
 
         self.tile_grid = [[-1 for y in range(height)] for x in range(width)]
         # Add some tiles for testing
-        self.tile_grid[0][1] = 1
-        self.tile_grid[3][2] = 2
+        self.tile_grid[0][9] = 1
+        self.tile_grid[1][9] = 2
+        self.tile_grid[2][9] = 2
+        self.tile_grid[3][9] = 2
+        self.tile_grid[4][9] = 1
+        self.tile_grid[5][9] = 2
+        self.tile_grid[6][9] = 2
+        self.tile_grid[7][9] = 1
+
+
         self.tile_grid[4][2] = 1
         self.tile_grid[5][2] = 2
         self.tile_grid[6][2] = 2
@@ -46,10 +54,11 @@ class Tilemap:  # currently indexed with [x][y]
 
         self.is_dirty = True
         self.surface = None
-        self.rects = None
+        self.rects = []
 
     def clean_tilemap(self):
         # TODO: specify if a specific tile changed or if we need to recalculate the entire surface
+        # TODO: make tile_rects only contain the rects that are on the screen for efficiency boost when checking for collisions
         # if adding new tile: blit the rect to the old surface
         print('is dirty')
         surface = pygame.Surface(self.size).convert_alpha()  # makes the parts of the surface we don't draw to
@@ -81,4 +90,4 @@ class Tilemap:  # currently indexed with [x][y]
         if self.is_dirty:
             self.clean_tilemap()
 
-        return self.surface, (200, 0)
+        return self.surface, (0, 0)

@@ -4,44 +4,56 @@ from utils import *
 
 
 class Player:
-    vertical_speed = 100
+    vertical_speed = 5
 
     def __init__(self, width, height):
-        self.size = pygame.Vector2(width, height)
-        self.position = pygame.Vector2(100, HEIGHT / 2 - height / 2)
+        size = pygame.Vector2(width, height)
+        position = pygame.Vector2(100, HEIGHT / 2 - height / 2)
+        self.rect = pygame.Rect(*position, *size)
 
         self.gravity_scale = 1
         self.velocity = pygame.Vector2(0, self.gravity_scale * self.vertical_speed)
-        print('Created a player instance')
 
     def jump(self):
         self.gravity_scale *= -1
         self.velocity.y = self.gravity_scale * self.vertical_speed
 
-    def move(self, move_amount: pygame.Vector2, collisions):
-        new_position = self.position + move_amount
-        new_position = self.clamp_to_screen(new_position)
-        self.position = new_position
+    def move(self, move_amount: pygame.Vector2, collision_rects):
+        collision_types = {'top': False, 'bottom': False, 'left': False, 'right': False}
+        rect_after_movement = self.rect
+        rect_after_movement.x += move_amount.x
+        hit_list = collision_test(rect_after_movement, collision_rects)
+        for hit in hit_list:
+            if move_amount.x > 0:
+                rect_after_movement.right = hit.left
+                collision_types['right'] = True
+            elif move_amount.x < 0:
+                rect_after_movement.left = hit.right
+                collision_types['left'] = True
+        rect_after_movement.y += move_amount.y
+        print(move_amount.y, rect_after_movement.y, rect_after_movement.y + move_amount.y)
+        hit_list = collision_test(rect_after_movement, collision_rects)
+        for hit in hit_list:
+            if move_amount.y > 0:
+                rect_after_movement.bottom = hit.top
+                collision_types['bottom'] = True
+            elif move_amount.y < 0:
+                rect_after_movement.top = hit.bottom
+                collision_types['up'] = True
 
-    def clamp_to_screen(self, position):
-        if position.y < 1:
-            position.y = 1
-            self.velocity.y = 0
-        if position.y > HEIGHT - self.size.y:
-            position.y = HEIGHT - self.size.y
-            self.velocity.y = 0
+        self.rect = rect_after_movement
+        return collision_types
 
-        return position
-
-    def update(self, delta_time, collisions):
+    def update(self, delta_time, tile_rects):
+        # TODO: Add delta_time for movement back
         # Get the position the player would move to with its current velocity
-        move_amount = self.velocity * delta_time
-
-        # Apply constraints to that position (collisions)
-        self.move(move_amount=move_amount, collisions=collisions)
+        move_amount = self.velocity
+        move_amount.x = 1
+        # Move the player contained to collisions and get the collisions from the movement
+        collisions = self.move(move_amount=move_amount, collision_rects=tile_rects)
 
     def get_render_info(self):
-        surface = pygame.Surface(self.size)
+        surface = pygame.Surface(self.rect.size)
         surface.fill(BLUE)
 
-        return surface, self.position
+        return surface, self.rect

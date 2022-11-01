@@ -27,7 +27,7 @@ def main():
                 if event.key == pygame.K_SPACE:
                     player.jump()
 
-        player.update(delta_time, collisions=tilemap)
+        player.update(delta_time, tile_rects=tilemap.rects)
 
         draw(WIN, player, tilemap)
 
@@ -41,8 +41,8 @@ def draw(win: pygame.display, player: Player, tilemap: Tilemap):
     tilemap_surface, tilemap_position = tilemap.get_render_info()
     win.blit(tilemap_surface, (0, 0), area=(*tilemap_position, WIDTH, HEIGHT))
 
-    player_surface, player_position = player.get_render_info()
-    win.blit(player_surface, player_position)
+    player_surface, player_rect = player.get_render_info()
+    win.blit(player_surface, player_rect)
 
     pygame.display.update()
 
