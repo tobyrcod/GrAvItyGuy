@@ -8,35 +8,75 @@ class Tilemap:  # currently indexed with [x][y]
         2: GREEN
     }
 
-    def __init__(self, width: int, height: int):
+    def __init__(self, width: int, height: int, cell_size: int):
         self.width, self.height = width, height
-        self.size = pygame.Vector2(WIDTH, HEIGHT)
+        self.cell_size = cell_size
+        self.size = pygame.Vector2(width * cell_size, height * cell_size)
 
-        self.grid_size = math.ceil(self.size.y / height)
-        self.grid = [[-1 for y in range(height)] for x in range(width)]
-        self.grid[0][1] = 1
-        self.grid[3][2] = 2
+        self.tile_grid = [[-1 for y in range(height)] for x in range(width)]
+        # Add some tiles for testing
+        self.tile_grid[0][1] = 1
+        self.tile_grid[3][2] = 2
+        self.tile_grid[4][2] = 1
+        self.tile_grid[5][2] = 2
+        self.tile_grid[6][2] = 2
+        self.tile_grid[7][2] = 1
+        self.tile_grid[8][2] = 2
+        self.tile_grid[9][2] = 1
+        self.tile_grid[10][2] = 2
+        self.tile_grid[11][2] = 1
+        self.tile_grid[12][2] = 2
+        self.tile_grid[13][2] = 2
+        self.tile_grid[14][2] = 1
+        self.tile_grid[15][2] = 2
+        self.tile_grid[16][2] = 1
+        self.tile_grid[17][2] = 2
+        self.tile_grid[18][2] = 1
+        self.tile_grid[19][2] = 2
+        self.tile_grid[20][2] = 2
+        self.tile_grid[21][2] = 1
+        self.tile_grid[22][2] = 2
+        self.tile_grid[23][2] = 1
+        self.tile_grid[24][2] = 2
+        self.tile_grid[25][2] = 1
+        self.tile_grid[26][2] = 2
+        self.tile_grid[27][2] = 2
+        self.tile_grid[28][2] = 1
+        self.tile_grid[29][2] = 2
 
-    def get_render_info(self):
+        self.is_dirty = True
+        self.surface = None
+        self.rects = None
+
+    def clean_tilemap(self):
+        print('is dirty')
         surface = pygame.Surface(self.size).convert_alpha()  # makes the parts of the surface we don't draw to
         # transparent
+        rects = []
 
         # Start to draw the tilemap
         for x in range(self.width):
-            # If this column is off the screen, we don't need to render it or any other column
-            if x * self.grid_size >= self.size.x:
-                break
-
             # for every row in the column
             for y in range(self.height):
                 # If there is something in this tile
-                value = self.grid[x][y]
+                value = self.tile_grid[x][y]
                 if value != -1:
                     # Draw it
+                    rect = pygame.Rect(x * self.cell_size, y * self.cell_size, self.cell_size, self.cell_size)
+                    rects.append(rect)
                     pygame.draw.rect(
                         surface=surface,
                         color=self.dict_index_color[value],
-                        rect=(x * self.grid_size, y * self.grid_size, self.grid_size, self.grid_size)
+                        rect=rect
                     )
 
-        return surface, (0, 0)
+        self.is_dirty = False
+        self.surface = surface
+        self.rects = rects
+
+    def get_render_info(self):
+        # TODO: Cache the tilemap and only recreate the surface if any new tiles are placed
+        if self.is_dirty:
+            self.clean_tilemap()
+
+        return self.surface, (0, 0)
