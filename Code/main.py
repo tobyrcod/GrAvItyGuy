@@ -39,7 +39,7 @@ def draw(win: pygame.display, player: Player, tilemap: Tilemap):
     win.fill(BG_COLOR)
 
     tilemap_surface, tilemap_position = tilemap.get_render_info()
-    win.blit(tilemap_surface, tilemap_position)
+    win.blit(tilemap_surface, (0, 0), area=(*tilemap_position, WIDTH, HEIGHT))
 
     player_surface, player_position = player.get_render_info()
     win.blit(player_surface, player_position)

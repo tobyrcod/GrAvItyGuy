@@ -49,6 +49,8 @@ class Tilemap:  # currently indexed with [x][y]
         self.rects = None
 
     def clean_tilemap(self):
+        # TODO: specify if a specific tile changed or if we need to recalculate the entire surface
+        # if adding new tile: blit the rect to the old surface
         print('is dirty')
         surface = pygame.Surface(self.size).convert_alpha()  # makes the parts of the surface we don't draw to
         # transparent
@@ -79,4 +81,4 @@ class Tilemap:  # currently indexed with [x][y]
         if self.is_dirty:
             self.clean_tilemap()
 
-        return self.surface, (0, 0)
+        return self.surface, (200, 0)
