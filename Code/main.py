@@ -38,11 +38,12 @@ def draw(win: pygame.display, player: Player, tilemap: Tilemap):
 
     win.fill(BG_COLOR)
 
+    scroll_position = player.rect.left
     tilemap_surface, tilemap_position = tilemap.get_render_info()
-    win.blit(tilemap_surface, (0, 0), area=(*tilemap_position, WIDTH, HEIGHT))
+    win.blit(tilemap_surface, (0, 0), area=(scroll_position, 0, WIDTH, HEIGHT))
 
     player_surface, player_rect = player.get_render_info()
-    win.blit(player_surface, player_rect)
+    win.blit(player_surface, (player_rect.left - scroll_position, player.rect.top))
 
     pygame.display.update()
 
