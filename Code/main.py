@@ -38,7 +38,7 @@ def draw(win: pygame.display, player: Player, tilemap: Tilemap):
 
     win.fill(BG_COLOR)
 
-    scroll_position = player.rect.left
+    scroll_position = player.rect.left - 50
     tilemap_surface, tilemap_position = tilemap.get_render_info()
     win.blit(tilemap_surface, (0, 0), area=(scroll_position, 0, WIDTH, HEIGHT))
 

@@ -15,14 +15,21 @@ class Tilemap:  # currently indexed with [x][y]
 
         self.tile_grid = [[-1 for y in range(height)] for x in range(width)]
         # Add some tiles for testing
-        self.tile_grid[0][9] = 1
-        self.tile_grid[1][9] = 2
-        self.tile_grid[2][9] = 2
-        self.tile_grid[3][9] = 2
         self.tile_grid[4][9] = 1
         self.tile_grid[5][9] = 2
         self.tile_grid[6][9] = 2
         self.tile_grid[7][9] = 1
+        self.tile_grid[8][9] = 2
+        self.tile_grid[9][9] = 1
+        self.tile_grid[10][9] = 2
+
+        self.tile_grid[16][9] = 1
+        self.tile_grid[17][9] = 2
+        self.tile_grid[18][9] = 1
+        self.tile_grid[19][9] = 2
+        self.tile_grid[20][9] = 2
+        self.tile_grid[21][9] = 1
+        self.tile_grid[22][9] = 2
 
 
         self.tile_grid[4][2] = 1
@@ -37,13 +44,6 @@ class Tilemap:  # currently indexed with [x][y]
         self.tile_grid[13][2] = 2
         self.tile_grid[14][2] = 1
         self.tile_grid[15][2] = 2
-        self.tile_grid[16][2] = 1
-        self.tile_grid[17][2] = 2
-        self.tile_grid[18][2] = 1
-        self.tile_grid[19][2] = 2
-        self.tile_grid[20][2] = 2
-        self.tile_grid[21][2] = 1
-        self.tile_grid[22][2] = 2
         self.tile_grid[23][2] = 1
         self.tile_grid[24][2] = 2
         self.tile_grid[25][2] = 1

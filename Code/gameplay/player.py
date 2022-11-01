@@ -31,7 +31,6 @@ class Player:
                 rect_after_movement.left = hit.right
                 collision_types['left'] = True
         rect_after_movement.y += move_amount.y
-        print(move_amount.y, rect_after_movement.y, rect_after_movement.y + move_amount.y)
         hit_list = collision_test(rect_after_movement, collision_rects)
         for hit in hit_list:
             if move_amount.y > 0:
@@ -48,7 +47,7 @@ class Player:
         # TODO: Add delta_time for movement back
         # Get the position the player would move to with its current velocity
         move_amount = self.velocity
-        move_amount.x = 1
+        move_amount.x = 2
         # Move the player contained to collisions and get the collisions from the movement
         collisions = self.move(move_amount=move_amount, collision_rects=tile_rects)
 
