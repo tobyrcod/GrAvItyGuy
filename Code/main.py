@@ -1,5 +1,6 @@
 from utils import *
-from gameplay import *
+from player import Player
+from tilemap import Tilemap
 
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("grAvIty guy")
