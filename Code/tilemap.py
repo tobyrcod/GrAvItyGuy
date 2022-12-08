@@ -1,3 +1,5 @@
+import pygame
+
 from utils import *
 
 
@@ -14,43 +16,8 @@ class Tilemap:  # currently indexed with [x][y]
         self.size = pygame.Vector2(width * cell_size, height * cell_size)
 
         self.tile_grid = [[-1 for y in range(height)] for x in range(width)]
-        # Add some tiles for testing
-        self.tile_grid[4][9] = 1
-        self.tile_grid[5][9] = 2
-        self.tile_grid[6][9] = 2
-        self.tile_grid[7][9] = 1
-        self.tile_grid[8][9] = 2
-        self.tile_grid[9][9] = 1
-        self.tile_grid[10][9] = 2
-
-        self.tile_grid[16][9] = 1
-        self.tile_grid[17][9] = 2
-        self.tile_grid[18][9] = 1
-        self.tile_grid[19][9] = 2
-        self.tile_grid[20][9] = 2
-        self.tile_grid[21][9] = 1
-        self.tile_grid[22][9] = 2
-
-
-        self.tile_grid[4][2] = 1
-        self.tile_grid[5][2] = 2
-        self.tile_grid[6][2] = 2
-        self.tile_grid[7][2] = 1
-        self.tile_grid[8][2] = 2
-        self.tile_grid[9][2] = 1
-        self.tile_grid[10][2] = 2
-        self.tile_grid[11][2] = 1
-        self.tile_grid[12][2] = 2
-        self.tile_grid[13][2] = 2
-        self.tile_grid[14][2] = 1
-        self.tile_grid[15][2] = 2
-        self.tile_grid[23][2] = 1
-        self.tile_grid[24][2] = 2
-        self.tile_grid[25][2] = 1
-        self.tile_grid[26][2] = 2
-        self.tile_grid[27][2] = 2
-        self.tile_grid[28][2] = 1
-        self.tile_grid[29][2] = 2
+        self.tile_grid[1][1] = 1
+        self.tile_grid[5][-1] = 2
 
         self.is_dirty = True
         self.surface = None
@@ -91,3 +58,6 @@ class Tilemap:  # currently indexed with [x][y]
             self.clean_tilemap()
 
         return self.surface, (0, 0)
+
+    def position_to_coord(self, position: pygame.Vector2):
+        return pygame.Vector2(position.x // self.cell_size, position.y // self.cell_size)
