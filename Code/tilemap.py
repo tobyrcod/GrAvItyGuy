@@ -69,9 +69,9 @@ class Tilemap:  # currently indexed with [x][y]
     def clear(self):
         self.tile_grid = [[-1 for y in range(self.height)] for x in range(self.width)]
         self.is_dirty = True
-        
+
     def save(self, filename: str):
-        ext = 'json'
+        ext = 'tm'
         json_tilemap = {}
 
         for x in range(self.width):
@@ -90,7 +90,7 @@ class Tilemap:  # currently indexed with [x][y]
             print(f'{outfile.name} saved successfully')
 
     def load(self, filename: str):
-        ext = 'json'
+        ext = 'tm'
 
         with open(f'{filename}.{ext}') as json_file:
             json_tilemap = json.load(json_file)
