@@ -60,4 +60,46 @@ class Tilemap:  # currently indexed with [x][y]
         return self.surface, (0, 0)
 
     def position_to_coord(self, position: pygame.Vector2):
-        return pygame.Vector2(position.x // self.cell_size, position.y // self.cell_size)
+        return pygame.Vector2(int(position.x // self.cell_size), int(position.y // self.cell_size))
+
+    def set_tile(self, x: int, y: int, value):
+        self.tile_grid[int(x)][int(y)] = value
+        self.is_dirty = True
+
+    def clear(self):
+        self.tile_grid = [[-1 for y in range(self.height)] for x in range(self.width)]
+        self.is_dirty = True
+        
+    def save(self, filename: str):
+        ext = 'json'
+        json_tilemap = {}
+
+        for x in range(self.width):
+            # for every row in the column
+            for y in range(self.height):
+                # If there is something in this tile
+                value = self.tile_grid[x][y]
+                if value != -1:
+                    if x in json_tilemap:
+                        json_tilemap[x][y] = value
+                    else:
+                        json_tilemap[x] = {y: value}
+
+        with open(f'{filename}.{ext}', 'w') as outfile:
+            json.dump(json_tilemap, outfile)
+            print(f'{outfile.name} saved successfully')
+
+    def load(self, filename: str):
+        ext = 'json'
+
+        with open(f'{filename}.{ext}') as json_file:
+            json_tilemap = json.load(json_file)
+
+            tile_grid = [[-1 for y in range(self.height)] for x in range(self.width)]
+            for x, ys in json_tilemap.items():
+                for y, value in ys.items():
+                    tile_grid[int(x)][int(y)] = value
+
+            self.tile_grid = tile_grid
+            self.is_dirty = True
+

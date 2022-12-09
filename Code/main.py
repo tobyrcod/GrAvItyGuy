@@ -48,11 +48,26 @@ def main():
                     run = False
                     break
 
-                if event.type == pygame.MOUSEBUTTONUP:
-                    if event.button == 1:
-                        pos = pygame.Vector2(pygame.mouse.get_pos())
-                        pos.x += scroll_x
-                        print(tilemap.position_to_coord(pygame.Vector2(pos)))
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_s:
+                        tilemap.save('level1')
+
+                    if event.key == pygame.K_l:
+                        tilemap.load('level1')
+
+                if pygame.mouse.get_pressed()[0]:
+                    pos = pygame.Vector2(pygame.mouse.get_pos())
+                    pos.x += scroll_x
+
+                    coord = tilemap.position_to_coord(pygame.Vector2(pos))
+                    tilemap.set_tile(coord.x, coord.y, 1)
+
+                if pygame.mouse.get_pressed()[2]:
+                    pos = pygame.Vector2(pygame.mouse.get_pos())
+                    pos.x += scroll_x
+
+                    coord = tilemap.position_to_coord(pygame.Vector2(pos))
+                    tilemap.set_tile(coord.x, coord.y, -1)
 
         draw(WIN, player, tilemap, scroll_x)
 
