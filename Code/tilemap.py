@@ -11,9 +11,8 @@ class Tilemap:  # currently indexed with [x][y]
         self.cell_size = cell_size
         self.size = pygame.Vector2(width * cell_size, height * cell_size)
 
-        green_tile = Tile.load('green')
+        self.tile_palette = TilePalette.load('default_palette')
 
-        self.tile_palette = TilePalette([green_tile])
         self.tile_grid = [[-1 for y in range(height)] for x in range(width)]
 
         self.is_dirty = True
@@ -69,7 +68,7 @@ class Tilemap:  # currently indexed with [x][y]
         self.tile_grid = [[-1 for y in range(self.height)] for x in range(self.width)]
         self.is_dirty = True
 
-    def save(self, filename: str):
+    def save_level(self, filename: str):
         ext = 'tm'
         json_tilemap = {}
 
@@ -88,7 +87,7 @@ class Tilemap:  # currently indexed with [x][y]
             json.dump(json_tilemap, outfile)
             print(f'{outfile.name} saved successfully')
 
-    def load(self, filename: str):
+    def load_level(self, filename: str):
         ext = 'tm'
 
         with open(f'{filename}.{ext}') as json_file:
