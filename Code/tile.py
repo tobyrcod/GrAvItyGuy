@@ -7,7 +7,7 @@ class Tile:
         self.color = color
 
     def save(self):
-        with open(f'tile_{self.name}.json', 'w') as outfile:
+        with open(f'Tilemap/Tiles/tile_{self.name}.json', 'w') as outfile:
             json.dump({
                 'name': self.name,
                 'color': self.color,
@@ -16,7 +16,7 @@ class Tile:
 
     @staticmethod
     def load(filename):
-        with open(f'tile_{filename}.json') as json_file:
+        with open(f'Tilemap/Tiles/tile_{filename}.json') as json_file:
             data = json.load(json_file)
             tile = Tile(*data.values())
             print(f'{json_file.name} loaded successfully')

@@ -16,7 +16,7 @@ clock = pygame.time.Clock()
 
 def main():
 
-    mode = 'edit'
+    mode = 'play'
 
     player = Player(width=20, height=20)
     tilemap = Tilemap(width=30, height=10, cell_size=HEIGHT/10)

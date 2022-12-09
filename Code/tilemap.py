@@ -83,14 +83,14 @@ class Tilemap:  # currently indexed with [x][y]
                     else:
                         json_tilemap[x] = {y: value}
 
-        with open(f'{filename}.{ext}', 'w') as outfile:
+        with open(f'Tilemap/Levels/{filename}.{ext}', 'w') as outfile:
             json.dump(json_tilemap, outfile)
             print(f'{outfile.name} saved successfully')
 
     def load_level(self, filename: str):
         ext = 'tm'
 
-        with open(f'{filename}.{ext}') as json_file:
+        with open(f'Tilemap/Levels/{filename}.{ext}') as json_file:
             json_tilemap = json.load(json_file)
 
             tile_grid = [[-1 for y in range(self.height)] for x in range(self.width)]
