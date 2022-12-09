@@ -11,7 +11,8 @@ class Tilemap:  # currently indexed with [x][y]
         self.cell_size = cell_size
         self.size = pygame.Vector2(width * cell_size, height * cell_size)
 
-        green_tile = Tile('green', (0, 255, 0))
+        green_tile = Tile.load('green')
+
         self.tile_palette = TilePalette([green_tile])
         self.tile_grid = [[-1 for y in range(height)] for x in range(width)]
 
