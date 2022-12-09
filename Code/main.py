@@ -12,9 +12,10 @@ clock = pygame.time.Clock()
 # TODO: UI as a FSM to change what is shown, and what you can press
 # TODO: Make scroll_x cleaner
 
+
 def main():
 
-    mode = 'edit'
+    mode = 'play'
 
     player = Player(width=20, height=20)
     tilemap = Tilemap(width=30, height=10, cell_size=HEIGHT/10)
@@ -29,6 +30,7 @@ def main():
         events = pygame.event.get()
 
         if mode == 'play':
+            tilemap.load('level1')
             # Respond to the pygame events this frame
             for event in events:
                 if event.type == pygame.QUIT:
@@ -54,6 +56,9 @@ def main():
 
                     if event.key == pygame.K_l:
                         tilemap.load('level1')
+
+                    if event.key == pygame.K_c:
+                        tilemap.clear()
 
                 if pygame.mouse.get_pressed()[0]:
                     pos = pygame.Vector2(pygame.mouse.get_pos())
