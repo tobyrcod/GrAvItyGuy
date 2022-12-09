@@ -1,20 +1,18 @@
 import pygame
-
+from tile import Tile
+from tilepalette import TilePalette
 from utils import *
 
 
 class Tilemap:  # currently indexed with [x][y]
-
-    dict_index_color = {
-        1: RED,
-        2: GREEN
-    }
 
     def __init__(self, width: int, height: int, cell_size: int):
         self.width, self.height = width, height
         self.cell_size = cell_size
         self.size = pygame.Vector2(width * cell_size, height * cell_size)
 
+        green_tile = Tile('green', (0, 255, 0))
+        self.tile_palette = TilePalette([green_tile])
         self.tile_grid = [[-1 for y in range(height)] for x in range(width)]
 
         self.is_dirty = True
@@ -38,11 +36,13 @@ class Tilemap:  # currently indexed with [x][y]
                 value = self.tile_grid[x][y]
                 if value != -1:
                     # Draw it
+                    # Get the tile
+                    tile = self.tile_palette[value]
                     rect = pygame.Rect(x * self.cell_size, y * self.cell_size, self.cell_size, self.cell_size)
                     rects.append(rect)
                     pygame.draw.rect(
                         surface=surface,
-                        color=self.dict_index_color[value],
+                        color=tile.color,
                         rect=rect
                     )
 

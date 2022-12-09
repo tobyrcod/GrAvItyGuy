@@ -23,7 +23,7 @@ def main():
     tilemap.load('level1')
 
     scroll_x = player.rect.left - 50
-    scroll_speed = 10
+    scroll_speed = 20
 
     run = True
     while run:
@@ -68,8 +68,11 @@ def main():
 
                 if event.type == pygame.MOUSEWHEEL:
                     scroll_dir = pygame.Vector2(*numpy.sign([event.x, event.y]))
-                    scroll_x += scroll_dir.y * scroll_speed
-                    print(scroll_x)
+                    if scroll_dir.y != 0:
+                        scroll_x += scroll_dir.y * scroll_speed
+                        break
+
+                    scroll_x += scroll_dir.x * scroll_speed
                     break
 
                 if pygame.mouse.get_pressed()[0]:
