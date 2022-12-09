@@ -16,8 +16,6 @@ class Tilemap:  # currently indexed with [x][y]
         self.size = pygame.Vector2(width * cell_size, height * cell_size)
 
         self.tile_grid = [[-1 for y in range(height)] for x in range(width)]
-        self.tile_grid[1][1] = 1
-        self.tile_grid[5][-1] = 2
 
         self.is_dirty = True
         self.surface = None
@@ -102,4 +100,6 @@ class Tilemap:  # currently indexed with [x][y]
 
             self.tile_grid = tile_grid
             self.is_dirty = True
+
+            print(f'{json_file.name} loaded successfully')
 

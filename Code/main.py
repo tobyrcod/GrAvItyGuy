@@ -1,3 +1,4 @@
+import numpy
 import pygame
 
 from utils import *
@@ -15,12 +16,14 @@ clock = pygame.time.Clock()
 
 def main():
 
-    mode = 'play'
+    mode = 'edit'
 
     player = Player(width=20, height=20)
     tilemap = Tilemap(width=30, height=10, cell_size=HEIGHT/10)
+    tilemap.load('level1')
 
     scroll_x = player.rect.left - 50
+    scroll_speed = 10
 
     run = True
     while run:
@@ -30,7 +33,6 @@ def main():
         events = pygame.event.get()
 
         if mode == 'play':
-            tilemap.load('level1')
             # Respond to the pygame events this frame
             for event in events:
                 if event.type == pygame.QUIT:
@@ -53,12 +55,22 @@ def main():
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_s:
                         tilemap.save('level1')
+                        break
 
                     if event.key == pygame.K_l:
                         tilemap.load('level1')
+                        break
 
                     if event.key == pygame.K_c:
                         tilemap.clear()
+                        break
+                    break
+
+                if event.type == pygame.MOUSEWHEEL:
+                    scroll_dir = pygame.Vector2(*numpy.sign([event.x, event.y]))
+                    scroll_x += scroll_dir.y * scroll_speed
+                    print(scroll_x)
+                    break
 
                 if pygame.mouse.get_pressed()[0]:
                     pos = pygame.Vector2(pygame.mouse.get_pos())
@@ -66,6 +78,7 @@ def main():
 
                     coord = tilemap.position_to_coord(pygame.Vector2(pos))
                     tilemap.set_tile(coord.x, coord.y, 1)
+                    break
 
                 if pygame.mouse.get_pressed()[2]:
                     pos = pygame.Vector2(pygame.mouse.get_pos())
@@ -73,6 +86,7 @@ def main():
 
                     coord = tilemap.position_to_coord(pygame.Vector2(pos))
                     tilemap.set_tile(coord.x, coord.y, -1)
+                    break
 
         draw(WIN, player, tilemap, scroll_x)
 
