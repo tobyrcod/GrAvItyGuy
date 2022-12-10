@@ -17,7 +17,8 @@ class TilePalette:
         self.tiles = {}
         for tile_file in self.dict_tilename_id.keys():
             tile = Tile.load(tile_file)
-            self.tiles[self.dict_tilename_id[tile.name]] = tile
+            tile.id = self.dict_tilename_id[tile.name]
+            self.tiles[tile.id] = tile
 
     def __getitem__(self, i):
         return self.tiles[i]

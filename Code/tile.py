@@ -7,6 +7,8 @@ class Tile:
         self.name = name
         self.sprite_path = sprite_path
 
+        self.id = -1
+
     def get_sprite(self, tile_grid=None):
         return pygame.image.load(f'Assets/Sprites/{self.sprite_path}')
 
@@ -42,9 +44,15 @@ class SmartTile(Tile):
         super().save('smart')
 
     def get_sprite(self, tile_grid=None):
-        if tile_grid is None:
-            return  super().get_sprite() # Return the center piece of the tileset
-
-        print('smart')
+        surface = pygame.Surface((TILE_BASE_SIZE, TILE_BASE_SIZE))
         sprite_sheet = super().get_sprite()
-        return sprite_sheet
+
+        # If we don't have the info we need to be smart, just default to returning the middle tile
+        if tile_grid is None:
+            surface.blit(sprite_sheet, dest=(0, 0), area=(16, 16, 16, 16))
+            return surface
+
+        # Bit-Masked Auto-tiles
+        # https://gamedevelopment.tutsplus.com/tutorials/how-to-use-tile-bitmasking-to-auto-tile-your-level-layouts--cms-25673
+        surface.blit(sprite_sheet, dest=(0, 0), area=(16, 16, 16, 16))
+        return surface

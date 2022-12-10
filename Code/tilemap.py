@@ -39,13 +39,12 @@ class Tilemap:  # currently indexed with [x][y]
                 value = self.tile_grid[x][y]
                 if value != -1:
                     # Draw it
-                    # Get the tile
-                    tile = self.tile_palette[value]
                     rect = pygame.Rect(x * self.cell_size, y * self.cell_size, self.cell_size, self.cell_size)
                     rects.append(rect)
-
-                    print(rect.size)
-                    sprite = pygame.transform.scale(tile.get_sprite(), rect.size)
+                    # Get the tile
+                    tile = self.tile_palette[value]
+                    sprite = pygame.transform.scale(tile.get_sprite(tile_grid=self.tile_grid), rect.size)
+                    # Draw to screen
                     surface.blit(sprite, rect)
 
         self.is_dirty = False
