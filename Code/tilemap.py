@@ -11,8 +11,11 @@ class Tilemap:  # currently indexed with [x][y]
         self.cell_size = cell_size
         self.size = pygame.Vector2(width * cell_size, height * cell_size)
 
+        # Tile palette to handle which tiles are available to place
         self.tile_palette = TilePalette.load('default_palette')
 
+        # A 2D array of indexes of tiles as determined by the tile_palette
+        # Initially all -1 to indicate an empty cell
         self.tile_grid = [[-1 for y in range(height)] for x in range(width)]
 
         self.is_dirty = True
@@ -40,11 +43,10 @@ class Tilemap:  # currently indexed with [x][y]
                     tile = self.tile_palette[value]
                     rect = pygame.Rect(x * self.cell_size, y * self.cell_size, self.cell_size, self.cell_size)
                     rects.append(rect)
-                    pygame.draw.rect(
-                        surface=surface,
-                        color=tile.color,
-                        rect=rect
-                    )
+
+                    print(rect.size)
+                    sprite = pygame.transform.scale(tile.get_sprite(), rect.size)
+                    surface.blit(sprite, rect)
 
         self.is_dirty = False
         self.surface = surface

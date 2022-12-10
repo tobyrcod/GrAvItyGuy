@@ -19,8 +19,7 @@ def main():
     mode = 'play'
 
     player = Player(width=20, height=20)
-    tilemap = Tilemap(width=30, height=10, cell_size=HEIGHT/10)
-    tilemap.load_level('level1')
+    tilemap = Tilemap(width=TILES_X, height=TILES_Y, cell_size=TILE_SIZE)
 
     scroll_x = player.rect.left - 50
     scroll_speed = 20
@@ -33,6 +32,7 @@ def main():
         events = pygame.event.get()
 
         if mode == 'play':
+            tilemap.load_level('level1')
             # Respond to the pygame events this frame
             for event in events:
                 if event.type == pygame.QUIT:
@@ -80,7 +80,7 @@ def main():
                     pos.x += scroll_x
 
                     coord = tilemap.position_to_coord(pygame.Vector2(pos))
-                    tilemap.set_tile(coord.x, coord.y, 2)
+                    tilemap.set_tile(coord.x, coord.y, 1)
                     break
 
                 if pygame.mouse.get_pressed()[2]:

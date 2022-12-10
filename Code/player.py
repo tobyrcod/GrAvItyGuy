@@ -53,6 +53,6 @@ class Player:
 
     def get_render_info(self):
         surface = pygame.Surface(self.rect.size)
-        surface.fill(BLUE)
+        surface.fill(WHITE)
 
         return surface, self.rect

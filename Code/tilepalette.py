@@ -5,11 +5,15 @@ from tile import Tile
 class TilePalette:
     def __init__(self, dict_tilename_id=None):
 
+        # If this tile palette is being loaded from one that already exists
         if dict_tilename_id is not None:
+            # Use this set of tiles and maps from tilename to id
             self.dict_tilename_id = dict_tilename_id
         else:
+            # If this is a new tilemap, assume the default
             self.dict_tilename_id = TilePalette.load('Tilemap/Tile Palettes/tp_default_palette.json')
 
+        # Stores all the available tiles in a dictionary, accessible by their id, as determined by the palette
         self.tiles = {}
         for tile_file in self.dict_tilename_id.keys():
             tile = Tile.load(tile_file)
