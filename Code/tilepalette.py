@@ -20,6 +20,9 @@ class TilePalette:
             tile.id = self.dict_tilename_id[tile.name]
             self.tiles[tile.id] = tile
 
+        # TODO: Move to TilePaletteUI Class
+        self.rect = pygame.Rect(WIDTH - TILE_SIZE * 2, 0, TILE_SIZE * 2, HEIGHT)
+
     def __getitem__(self, i):
         return self.tiles[i]
 
