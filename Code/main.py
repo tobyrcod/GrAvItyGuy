@@ -20,10 +20,9 @@ def main():
 
     player = Player(width=20, height=20)
     tilemap = Tilemap(width=TILES_X, height=TILES_Y, cell_size=TILE_SIZE)
-    tilemap.load_level('level1')
-
+    
     scroll_x = player.rect.left - 50
-    scroll_speed = 20
+    scroll_speed = 50
 
     run = True
     while run:
@@ -75,6 +74,7 @@ def main():
                     scroll_x += scroll_dir.x * scroll_speed
                     break
 
+                # Left CLick -> Place Tile
                 if pygame.mouse.get_pressed()[0]:
                     pos = pygame.Vector2(pygame.mouse.get_pos())
                     pos.x += scroll_x
@@ -83,6 +83,16 @@ def main():
                     tilemap.set_tile(coord.x, coord.y, 1)
                     break
 
+                # Middle Click -> Floodfill
+                if pygame.mouse.get_pressed()[1]:
+                    pos = pygame.Vector2(pygame.mouse.get_pos())
+                    pos.x += scroll_x
+
+                    coord = tilemap.position_to_coord(pygame.Vector2(pos))
+                    tilemap.floodfill(coord.x, coord.y, 1)
+                    break
+
+                # Right Click -> Delete
                 if pygame.mouse.get_pressed()[2]:
                     pos = pygame.Vector2(pygame.mouse.get_pos())
                     pos.x += scroll_x
@@ -91,12 +101,12 @@ def main():
                     tilemap.set_tile(coord.x, coord.y, -1)
                     break
 
-        draw(WIN, player, tilemap, scroll_x)
+        draw(WIN, player, tilemap, scroll_x, mode)
 
     pygame.quit()
 
 
-def draw(win: pygame.display, player: Player, tilemap: Tilemap, scroll_x: float):
+def draw(win: pygame.display, player: Player, tilemap: Tilemap, scroll_x: float, mode: str):
 
     win.fill(BG_COLOR)
 
@@ -105,6 +115,11 @@ def draw(win: pygame.display, player: Player, tilemap: Tilemap, scroll_x: float)
 
     player_surface, player_rect = player.get_render_info()
     win.blit(player_surface, (player_rect.left - scroll_x, player.rect.top))
+
+    match mode:
+        case 'edit':
+            tile_palette_surface, tile_palette_position = tilemap.tile_palette.get_render_info()
+            win.blit(tile_palette_surface, tile_palette_position)
 
     pygame.display.update()
 

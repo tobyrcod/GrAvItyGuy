@@ -23,6 +23,12 @@ class TilePalette:
     def __getitem__(self, i):
         return self.tiles[i]
 
+    def get_render_info(self):
+        surface = pygame.Surface(self.rect.size)
+        surface.fill(WHITE)
+
+        return surface, self.rect
+
     def save(self, filename):
         with open(f'Tilemap/Tile Palettes/tp_{filename}.json', 'w') as outfile:
             json.dump(self.dict_tilename_id, outfile)

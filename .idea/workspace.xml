@@ -6,9 +6,13 @@
   <component name="ChangeListManager">
     <list default="true" id="3e3c2a3f-4c31-462f-81cc-e021b1edcf24" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Code/Assets/Sprites/Terrain/sheet_stage.png" beforeDir="false" afterPath="$PROJECT_DIR$/Code/Assets/Sprites/Terrain/sheet_stage.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Code/Tilemap/Levels/level1.tm" beforeDir="false" afterPath="$PROJECT_DIR$/Code/Tilemap/Levels/level1.tm" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Code/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Code/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Code/tile.py" beforeDir="false" afterPath="$PROJECT_DIR$/Code/tile.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Code/tilemap.py" beforeDir="false" afterPath="$PROJECT_DIR$/Code/tilemap.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Code/tilepalette.py" beforeDir="false" afterPath="$PROJECT_DIR$/Code/tilepalette.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Code/utils/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/Code/utils/settings.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -98,7 +102,9 @@
       <workItem from="1670602408033" duration="2998000" />
       <workItem from="1670611592301" duration="1393000" />
       <workItem from="1670678512926" duration="7503000" />
-      <workItem from="1670839213363" duration="2738000" />
+      <workItem from="1670839213363" duration="4300000" />
+      <workItem from="1670844486003" duration="1653000" />
+      <workItem from="1670846329289" duration="315000" />
     </task>
     <servers />
   </component>
@@ -121,7 +127,7 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/GrAvItyGuy$player.coverage" NAME="player Coverage Results" MODIFIED="1670506303099" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Code" />
-    <SUITE FILE_PATH="coverage/GrAvItyGuy$main.coverage" NAME="main Coverage Results" MODIFIED="1670841959407" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Code" />
+    <SUITE FILE_PATH="coverage/GrAvItyGuy$main.coverage" NAME="main Coverage Results" MODIFIED="1670846603790" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Code" />
     <SUITE FILE_PATH="coverage/GrAvItyGuy$maketiles.coverage" NAME="maketiles Coverage Results" MODIFIED="1670681002971" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Code" />
     <SUITE FILE_PATH="coverage/GrAvItyGuy$tilemap.coverage" NAME="tilemap Coverage Results" MODIFIED="1670506034974" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Code" />
   </component>

@@ -62,7 +62,6 @@ class Tilemap:  # currently indexed with [x][y]
         return pygame.Vector2(int(position.x // self.cell_size), int(position.y // self.cell_size))
 
     def get_neighbours(self, x, y):
-        print(x, y)
         return {
             'up': -1 if not self.is_valid_coord(x, y - 1) else self.tile_grid[x][y - 1],
             'left': -1 if not self.is_valid_coord(x - 1, y) else self.tile_grid[x - 1][y],
@@ -73,9 +72,26 @@ class Tilemap:  # currently indexed with [x][y]
     def is_valid_coord(self, x, y):
         return 0 <= x < self.width and 0 <= y < self.height
 
-    def set_tile(self, x: int, y: int, value):
+    def set_tile(self, x: int, y: int, value: int):
+        if not self.is_valid_coord(x, y):
+            return
+
         self.tile_grid[int(x)][int(y)] = value
         self.is_dirty = True
+
+    def floodfill(self, x: int, y: int, value: int, depth=0):
+        if depth >= 10:
+            return
+
+        if not self.is_valid_coord(x, y) or self.tile_grid[int(x)][int(y)] != -1:
+            return
+
+        self.set_tile(x, y, value)
+
+        self.floodfill(x - 1, y, value, depth+1)
+        self.floodfill(x + 1, y, value, depth+1)
+        self.floodfill(x, y - 1, value, depth+1)
+        self.floodfill(x, y + 1, value, depth+1)
 
     def clear(self):
         self.tile_grid = [[-1 for y in range(self.height)] for x in range(self.width)]
