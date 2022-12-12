@@ -43,7 +43,7 @@ class Tilemap:  # currently indexed with [x][y]
                     rects.append(rect)
                     # Get the tile
                     tile = self.tile_palette[value]
-                    sprite = pygame.transform.scale(tile.get_sprite(tile_grid=self.tile_grid), rect.size)
+                    sprite = pygame.transform.scale(tile.get_sprite(neighbours=self.get_neighbours(x, y)), rect.size)
                     # Draw to screen
                     surface.blit(sprite, rect)
 
@@ -60,6 +60,18 @@ class Tilemap:  # currently indexed with [x][y]
 
     def position_to_coord(self, position: pygame.Vector2):
         return pygame.Vector2(int(position.x // self.cell_size), int(position.y // self.cell_size))
+
+    def get_neighbours(self, x, y):
+        print(x, y)
+        return {
+            'up': -1 if not self.is_valid_coord(x, y - 1) else self.tile_grid[x][y - 1],
+            'left': -1 if not self.is_valid_coord(x - 1, y) else self.tile_grid[x - 1][y],
+            'right': -1 if not self.is_valid_coord(x + 1, y) else self.tile_grid[x + 1][y],
+            'down': -1 if not self.is_valid_coord(x, y + 1) else self.tile_grid[x][y + 1],
+        }
+
+    def is_valid_coord(self, x, y):
+        return 0 <= x < self.width and 0 <= y < self.height
 
     def set_tile(self, x: int, y: int, value):
         self.tile_grid[int(x)][int(y)] = value
